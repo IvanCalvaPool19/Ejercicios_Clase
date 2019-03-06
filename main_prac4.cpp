@@ -1,7 +1,7 @@
 /* Calva Lorenzo Iván Eduardo
 Práctica 4
 VS Versión 2017
-Este programa dibuja una "Tetera", este objeto esta definido en GLUT, se crea una fuente de luz, y un material */
+Este programa dibuja cubos en piramide, utilizando teclas especiales para observar desde distintos angulos 3D */
 #include "Main.h"
 
 float transZ = -5.0f;
@@ -13,7 +13,7 @@ float angY = 0.0f;
 float angX = 0.0f;
 
 
-void InitGL ( void )     // Inicializamos parametros
+void InitGL(void)     // Inicializamos parametros
 {
 
 	//glShadeModel(GL_SMOOTH);							// Habilitamos Smooth Shading
@@ -28,7 +28,7 @@ void InitGL ( void )     // Inicializamos parametros
 
 void prisma(void)
 {
-	GLfloat vertice [8][3] = {
+	GLfloat vertice[8][3] = {
 				{0.5 ,-0.5, 0.5},    //Coordenadas Vértice 0 V0
 				{-0.5 ,-0.5, 0.5},    //Coordenadas Vértice 1 V1
 				{-0.5 ,-0.5, -0.5},    //Coordenadas Vértice 2 V2
@@ -37,165 +37,167 @@ void prisma(void)
 				{0.5 ,0.5, -0.5},    //Coordenadas Vértice 5 V5
 				{-0.5 ,0.5, -0.5},    //Coordenadas Vértice 6 V6
 				{-0.5 ,0.5, 0.5},    //Coordenadas Vértice 7 V7
-				};
+	};
 
-		glBegin(GL_POLYGON);	//Front
-			glColor3f(2.0,0.0,0.0);
-			glVertex3fv(vertice[0]);
-			glVertex3fv(vertice[4]);
-			glVertex3fv(vertice[7]);
-			glVertex3fv(vertice[1]);
-		glEnd();
+	glBegin(GL_POLYGON);	//Front
+	glColor3f(2.0, 0.0, 0.0);
+	glVertex3fv(vertice[0]);
+	glVertex3fv(vertice[4]);
+	glVertex3fv(vertice[7]);
+	glVertex3fv(vertice[1]);
+	glEnd();
 
-		glBegin(GL_POLYGON);	//Right
-			glColor3f(1.0,1.0,0.0);
-			glVertex3fv(vertice[0]);
-			glVertex3fv(vertice[3]);
-			glVertex3fv(vertice[5]);
-			glVertex3fv(vertice[4]);
-		glEnd();
+	glBegin(GL_POLYGON);	//Right
+	glColor3f(1.0, 1.0, 0.0);
+	glVertex3fv(vertice[0]);
+	glVertex3fv(vertice[3]);
+	glVertex3fv(vertice[5]);
+	glVertex3fv(vertice[4]);
+	glEnd();
 
-		glBegin(GL_POLYGON);	//Back
-			glColor3f(0.0,1.0,0.0);
-			glVertex3fv(vertice[6]);
-			glVertex3fv(vertice[5]);
-			glVertex3fv(vertice[3]);
-			glVertex3fv(vertice[2]);
-		glEnd();
+	glBegin(GL_POLYGON);	//Back
+	glColor3f(0.0, 1.0, 0.0);
+	glVertex3fv(vertice[6]);
+	glVertex3fv(vertice[5]);
+	glVertex3fv(vertice[3]);
+	glVertex3fv(vertice[2]);
+	glEnd();
 
-		glBegin(GL_POLYGON);  //Left
-			glColor3f(1.0, 0.2, 0.4);
-			glVertex3fv(vertice[1]);
-			glVertex3fv(vertice[7]);
-			glVertex3fv(vertice[6]);
-			glVertex3fv(vertice[2]);
-		glEnd();
+	glBegin(GL_POLYGON);  //Left
+	glColor3f(1.0, 0.2, 0.4);
+	glVertex3fv(vertice[1]);
+	glVertex3fv(vertice[7]);
+	glVertex3fv(vertice[6]);
+	glVertex3fv(vertice[2]);
+	glEnd();
 
-		glBegin(GL_POLYGON);  //Bottom
-			glColor3f(0.4,0.2,0.6);
-			glVertex3fv(vertice[0]);
-			glVertex3fv(vertice[1]);
-			glVertex3fv(vertice[2]);
-			glVertex3fv(vertice[3]);
-		glEnd();
+	glBegin(GL_POLYGON);  //Bottom
+	glColor3f(0.4, 0.2, 0.6);
+	glVertex3fv(vertice[0]);
+	glVertex3fv(vertice[1]);
+	glVertex3fv(vertice[2]);
+	glVertex3fv(vertice[3]);
+	glEnd();
 
-		glBegin(GL_POLYGON);  //Top
-			glColor3f(0.0,0.0,1.0);
-			glVertex3fv(vertice[4]);
-			glVertex3fv(vertice[5]);
-			glVertex3fv(vertice[6]);
-			glVertex3fv(vertice[7]);
-		glEnd();
+	glBegin(GL_POLYGON);  //Top
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex3fv(vertice[4]);
+	glVertex3fv(vertice[5]);
+	glVertex3fv(vertice[6]);
+	glVertex3fv(vertice[7]);
+	glEnd();
 }
 
-void display ( void )   // Creamos la funcion donde se dibuja
+void display(void)   // Creamos la funcion donde se dibuja
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Limiamos pantalla y Depth Buffer
 	//glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-		glTranslatef(transX, transY, transZ);
-		glRotatef(angY, 0, 1, 0);
-		glRotatef(angX, 1, 0, 0);
-		//Poner Código Aquí.
-		prisma();
-		glTranslatef(2.0f, 0.0f, 0.0f);
-		glScalef(1.5, 1.5, 1.5);
-		glRotatef(90, -1, 0, 0);
-		prisma();
-		glTranslatef(1.0f, 0.0f, 0.0f);
-		glRotatef(90, 0, 0, 1);
-		prisma();
-		glRotatef(90, 0, 0, -1);
-		glTranslatef(1.0f, 0.0f, 0.0f);
-		glRotatef(90, -1, 0, 0);
-		prisma();
-		glScalef(0.75, 0.75, 0.75);
-		glRotatef(90, 1, 0, 0);
-		glTranslatef(-1.75f, 0.0f, 1.0f);
-		glRotatef(90, 0, 0, -1);
-		prisma();
-		glRotatef(90, 0, 0, 1);
-		glTranslatef(1, 0, 0);
-		glRotatef(90, 1, 0, 0);
-		prisma();
-		glScalef(0.75, 0.75, 0.75);
-		glRotatef(90, -1, 0, 0);
-		glTranslatef(-0.675, 0, 1);
-		glRotatef(180, -1, 0, 0);
-		prisma();
-	
-		
-  											
-  glutSwapBuffers ( );
-  // Swap The Buffers
+	glTranslatef(transX, transY, transZ);
+	glRotatef(angY, 0, 1, 0);
+	glRotatef(angX, 1, 0, 0);
+	//Poner Código Aquí.
+	prisma();
+	glTranslatef(2.0f, 0.0f, 0.0f);
+	glScalef(1.5, 1.5, 1.5);
+	glRotatef(90, -1, 0, 0);
+	prisma();
+	glTranslatef(1.0f, 0.0f, 0.0f);
+	glRotatef(90, 0, 0, 1);
+	prisma();
+	glRotatef(90, 0, 0, -1);
+	glTranslatef(1.0f, 0.0f, 0.0f);
+	glRotatef(90, -1, 0, 0);
+	prisma();
+	glScalef(0.75, 0.75, 0.75);
+	glRotatef(90, 1, 0, 0);
+	glTranslatef(-1.75f, 0.0f, 1.0f);
+	glRotatef(90, 0, 0, -1);
+	prisma();
+	glRotatef(90, 0, 0, 1);
+	glTranslatef(1, 0, 0);
+	glRotatef(90, 1, 0, 0);
+	prisma();
+	glScalef(0.75, 0.75, 0.75);
+	glRotatef(90, -1, 0, 0);
+	glTranslatef(-0.675, 0, 1);
+	glRotatef(180, -1, 0, 0);
+	prisma();
+
+
+
+	glutSwapBuffers();
+	// Swap The Buffers
 }
 
-void reshape ( int width , int height )   // Creamos funcion Reshape
+void reshape(int width, int height)   // Creamos funcion Reshape
 {
-  if (height==0)										// Prevenir division entre cero
+	if (height == 0)										// Prevenir division entre cero
 	{
-		height=1;
+		height = 1;
 	}
 
-	glViewport(0,0,width,height);	
+	glViewport(0, 0, width, height);
 
 	glMatrixMode(GL_PROJECTION);						// Seleccionamos Projection Matrix
 	glLoadIdentity();
 
 	// Tipo de Vista
 	//glOrtho(-5,5,-5,5,0.2,20);	
-	glFrustum (-0.1, 0.1,-0.1, 0.1, 0.1, 50.0);
+	glFrustum(-0.1, 0.1, -0.1, 0.1, 0.1, 50.0);
 
 	glMatrixMode(GL_MODELVIEW);							// Seleccionamos Modelview Matrix
 }
 
-void keyboard ( unsigned char key, int x, int y )  // Create Keyboard Function
+void keyboard(unsigned char key, int x, int y)  // Create Keyboard Function
 {
-	switch ( key ) {
-		case 'w':
-		case 'W':
-			transZ +=0.2f;
-			break;
-		case 's':
-		case 'S':
-			transZ -= 0.2f;
-			break;
-		case 'a':
-		case 'A':
-			transX -= 0.2f;
-
-			break;
-		case 'd':
-		case 'D':
-			transX += 0.2f;
-			
-			break;
-		case 'q':
-		case 'Q':
-			transY += 0.2f;
-
-			break;
-		case 'e':
-		case 'E':
-			transY -= 0.2f;
-
-		case 27:        // Cuando Esc es presionado...
-			exit ( 0 );   // Salimos del programa
-		break;        
-		default:        // Cualquier otra
+	switch (key) {
+	case 'w':
+	case 'W':
+		transZ += 0.2f;
 		break;
-  }
+	case 's':
+	case 'S':
+		transZ -= 0.2f;
+		break;
+	case 'a':
+	case 'A':
+		transX -= 0.2f;
+
+		break;
+	case 'd':
+	case 'D':
+		transX += 0.2f;
+
+		break;
+	case 'q':
+	case 'Q':
+		transY += 0.2f;
+
+		break;
+	case 'e':
+	case 'E':
+		transY -= 0.2f;
+
+		break;
+
+	case 27:        // Cuando Esc es presionado...
+		exit(0);   // Salimos del programa
+		break;
+	default:        // Cualquier otra
+		break;
+	}
 	glutPostRedisplay();
 }
 
-void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas especiales (arrow keys)
+void arrow_keys(int a_keys, int x, int y)  // Funcion para manejo de teclas especiales (arrow keys)
 {
-  switch ( a_keys ) {
-    case GLUT_KEY_UP:		// Presionamos tecla ARRIBA...
+	switch (a_keys) {
+	case GLUT_KEY_UP:		// Presionamos tecla ARRIBA...
 		angX += 1.5f;
 		break;
-    case GLUT_KEY_DOWN:		// Presionamos tecla ABAJO...
+	case GLUT_KEY_DOWN:		// Presionamos tecla ABAJO...
 		angX -= 1.5f;
 		break;
 	case GLUT_KEY_LEFT:
@@ -204,34 +206,31 @@ void arrow_keys ( int a_keys, int x, int y )  // Funcion para manejo de teclas e
 	case GLUT_KEY_RIGHT:
 		angY -= 1.5f;
 		break;
-    default:
-      break;
-  }
-  glutPostRedisplay();
+	default:
+		break;
+	}
+	glutPostRedisplay();
 }
 
 
-int main ( int argc, char** argv )   // Main Function
+int main(int argc, char** argv)   // Main Function
 {
-  glutInit            (&argc, argv); // Inicializamos OpenGL
-  //glutInitDisplayMode (GLUT_RGBA | GLUT_SINGLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Sencillo )
-  glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
-  screenW = glutGet(GLUT_SCREEN_WIDTH);
-  screenH = glutGet(GLUT_SCREEN_HEIGHT);
-  glutInitWindowSize  (500, 500);	// Tamaño de la Ventana
-  glutInitWindowPosition (0, 0);	//Posicion de la Ventana
-  glutCreateWindow    ("Practica 4"); // Nombre de la Ventana
-  printf("Resolution H: %i \n", screenW);
-  printf("Resolution V: %i \n", screenH);
-  InitGL ();						// Parametros iniciales de la aplicacion
-  glutDisplayFunc     ( display );  //Indicamos a Glut función de dibujo
-  glutReshapeFunc     ( reshape );	//Indicamos a Glut función en caso de cambio de tamano
-  glutKeyboardFunc    ( keyboard );	//Indicamos a Glut función de manejo de teclado
-  glutSpecialFunc     ( arrow_keys );	//Otras
-  glutMainLoop        ( );          // 
+	glutInit(&argc, argv); // Inicializamos OpenGL
+	//glutInitDisplayMode (GLUT_RGBA | GLUT_SINGLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Sencillo )
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
+	screenW = glutGet(GLUT_SCREEN_WIDTH);
+	screenH = glutGet(GLUT_SCREEN_HEIGHT);
+	glutInitWindowSize(500, 500);	// Tamaño de la Ventana
+	glutInitWindowPosition(0, 0);	//Posicion de la Ventana
+	glutCreateWindow("Practica 4"); // Nombre de la Ventana
+	printf("Resolution H: %i \n", screenW);
+	printf("Resolution V: %i \n", screenH);
+	InitGL();						// Parametros iniciales de la aplicacion
+	glutDisplayFunc(display);  //Indicamos a Glut función de dibujo
+	glutReshapeFunc(reshape);	//Indicamos a Glut función en caso de cambio de tamano
+	glutKeyboardFunc(keyboard);	//Indicamos a Glut función de manejo de teclado
+	glutSpecialFunc(arrow_keys);	//Otras
+	glutMainLoop();          // 
 
-  return 0;
+	return 0;
 }
-
-
-
